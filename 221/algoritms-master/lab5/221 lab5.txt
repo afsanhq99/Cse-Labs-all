@@ -1,0 +1,200 @@
+#task 1
+
+
+
+n=int(input())
+l=[]
+for i in range(n):
+    a=list(map(int,input().split()))
+    l.append(a)
+#to sort the schedules based on the ending time i,e l[1]
+l=sorted(l,key=lambda x:x[1])
+final=[l[0]]
+#because first element from the sorted schedule is always included
+count=1
+#to store the last schedule end time
+f=l[0][1]
+for j in range(len(l)-1):
+    if(f<=l[j+1][0]):
+        #if greater or equal to end time then included and count increased
+        final.append(l[j+1])
+        f=l[j+1][1]
+        count+=1
+print(count)
+for j in final:
+    print(*j)
+
+
+
+===========================================================
+
+
+#task2
+
+Here is the completed code for this problem.
+PROGRAM/CODE : -
+
+# printMaxActivities function
+def printMaxActivities(s , f ):
+    n = len(f)
+    i = 0
+    count   =1
+
+    # Consider rest of the activities
+    for j in range(n):
+        if s[j] >= f[i]:
+            count+=1
+            i = j
+    return count
+
+# Driver code
+if __name__=="__main__":
+
+    # user input
+    x = [int(x) for x in input().split()]
+    s=[]
+    f=[]
+    
+    for i in range(len(x)):
+        if(i%2==0):
+            s.append(x[i])
+
+        else:
+            f.append(x[i])
+            
+    # calling printMaxActivities 
+    print(printMaxActivities(s , f))
+
+
+
+===============================================
+
+#task3
+
+
+
+# reads task3_input.txt file
+   inputFile = open("task3_input.txt", "r")
+   inpFile = inputFile.read().split("\n")
+   numOfTasks = int(inpFile[0].strip())   # no of tasks
+   tasks = [int(t) for t in inpFile[1].split()]   # time taken by each task
+   callStr = inpFile[2].strip()   # call string
+
+   # tasks sort
+   tasks.sort()
+   incrmnt = 0
+
+   # tasks selected by Jack
+   JackTasks = []
+   answer = []
+   jackHours = 0
+   jillHours = 0
+   v = 0
+
+   for c in callStr:
+       if c == "J":
+           # Jack selects the task which can be completed in minimum time
+           answer.append(tasks[incrmnt])
+           JackTasks.append(tasks[incrmnt])
+           jackHours = jackHours + tasks[incrmnt]   #calciulate jack Hours
+           incrmnt = incrmnt + 1
+       elif c == "j":
+           # Jack selects the task from JackTasks which can be completed in maximum time
+           v = JackTasks.pop()
+           answer.append(v)
+           jillHours = jillHours + v
+
+   #writing output to a file "task3_output.txt"
+   with open("task3_output.txt", "w") as outputFile:
+       outputFile.writelines(''.join(str(a) for a in answer))       #converts list to string and writes to file
+       outputFile.write("\nJack will work for "+str(jackHours)+" hours")   #writes jackHours to file
+       outputFile.write("\njill will work for "+str(jillHours)+" hours")   #writes jillHours to file
+
+task3_input.txt (input 1):
+
+4
+1 4 2 3
+JJjJjjJ
+
+task3_input.txt (input 2):
+
+3
+2 5 3
+JjJJjj
+
+###################################################or
+
+# reading task3_input.txt file
+file = open("task3_input.txt", "r")
+f = file.read()
+f = f.split("\n")
+
+# no of tasks
+n = int(f[0].strip())
+
+# time taken by each task
+tasks = [int(i) for i in f[1].split()]
+
+# call string
+calls = f[2].strip()
+
+# sorting the tasks
+tasks.sort()
+x = 0
+
+# tasks selected by Jack
+Jack_tasks = []
+
+ans = []
+
+for child in calls:
+    if child == "J":
+        # Jack selects min time task from tasks
+        ans.append(tasks[x])
+        Jack_tasks.append(tasks[x])
+        x += 1
+    elif child == "j":
+        # Jill selects the max time task from Jack_tasks
+        ans.append(Jack_tasks.pop())
+
+print(*ans, sep = "")
+
+
+
+=============================================
+#task4
+
+
+
+import java.util.ArrayList;
+import java.util.Scanner;
+
+public class squarenumber {
+   public static void main(String[] args) {
+       ArrayList<Integer> result = new ArrayList<Integer>();
+       Scanner input = new Scanner(System.in);
+       int a, b, count;
+       /* taking input from user */
+       a = input.nextInt();
+       b = input.nextInt();
+       /* looping until a and b is 0 */
+       while (a != 0 && b != 0) {
+           count = 0;
+           int i = (int)Math.sqrt(a);
+           int square = i * i;
+           /* checking for all square numbers which is between a and b */
+           while (square <= b) {
+               i++;
+               if(square>=a)
+                   count++;
+               square = i * i;
+           }
+           result.add(count);
+           a = input.nextInt();
+           b = input.nextInt();
+       }
+       for (int i = 0; i < result.size(); i++)
+           System.out.println(result.get(i));
+       input.close();
+   }
+}
